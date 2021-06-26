@@ -1,34 +1,14 @@
-from random import choice
+from random import choices
 
 
-def generator(length):
-    lowercase_letters = 'abcdefghijkmnpqrstuvwxyz'
-    uppercase_letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ'
-    digits = '23456789'
-    special = '#$%&*+-<=>?@_'
-    symbols = [lowercase_letters, uppercase_letters, digits, special]
-    chars = ''.join(symbols)
+def password_generator(length: int) -> str:
+    array_symbols = ['abcdefghijkmnpqrstuvwxyz', 'ABCDEFGHJKLMNPQRSTUVWXYZ', '23456789', '#$%&*+-<=>?@_']
     while True:
-        password = ''
-        for _ in range(length):
-            password += choice(chars)
-        for elem in symbols:
-            if not any([char in elem for char in password]):
+        password = ''.join(choices(''.join(array_symbols), k=length))
+        for symbols in array_symbols:
+            for char in password:
+                if char in symbols:
+                    break
+            else:
                 break
-        else:
-            break
-    return password
-
-
-def main():
-    while True:
-        length = input('Enter password length (minimum is 8): ')
-        if length.isdigit() and int(length) >= 8:
-            length = int(length)
-            break
-        print('Invalid input!')
-    print('Password:', generator(length))
-
-
-if __name__ == '__main__':
-    main()
+        return password
