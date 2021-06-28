@@ -11,4 +11,5 @@ def password_generator(length: int) -> str:
                     break
             else:
                 break
-        return password
+        else:
+            return password
